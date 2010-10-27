@@ -1,0 +1,58 @@
+
+#==================================================
+author: sean chen mail: funningboy@gmail.com
+publish 2010/10/27
+License: BSD
+#==================================================
+
+hi all,
+
+this is a finance catch tool to get publish info from  Web or DDE server.
+
+1.  in off time part(history data)
+1-1 getting the history data for each stock id,
+ex: (date,open,high,low,close,volume) @ Yahoo/Google web info
+    透過 goole 取得2330.TW 的歷史資料,從2010/01/01 ~ 2010/10/10 &&
+    存到 ./DATA/2330.TW.csv 位置
+
+my $google = NET::GoogleDailyData->new();
+   $google->get_history_data('2330.TW','2010/01/01','2010/10/10');
+   $google->exp_history_data('2330.TW',"./DATA/2330.TW.csv");
+
+1-2 getting the super buy/sell or trader detail info from (Yuanta)
+    ps: you can check the system set in SYS::GLB, that define our export paths && stock lists...
+
+ex: 取得當日的買賣超明細,
+    ps: 可參考 SYS::GLB 所設定的系統參數,定義我們要存放的位置跟stock lista...
+
+my $global = SYS::GLB->new();
+my $market_super_hstable = $global->get_market_super_hstable;
+#  printf Dumper($market_super_hstable);
+my $market = NET::Market->new($market_super_hstable);
+   $market->get_market_super_buyer_seller_data();
+   $market->exp_market_data();
+
+
+@ SYS::GLB 
+    my %market_super = (
+            name => ["external","internal","self","main"],
+            posit=> ["buyer","seller"],
+            day  => [1,5,10,30],
+            expf => { 
+                    # super buy (1)
+                     "external_buyer_1" => "./data_off/external/super_buy_1/"   ,  
+                     "internal_buyer_1" => "./data_off/internal/super_buy_1/"   ,
+                     "self_buyer_1"     => "./data_off/self/super_buy_1/"       ,
+ ....
+
+
+2.in real time part(DDE @ Fubon E01)
+you can check the WinDDE @ NET.
+taht would define the link fields for Fubon DDE server.
+or reference http://funningboy.blogspot.com/2010/02/dde-server-for-stock.html
+
+how to use it?
+
+perl DDE.pl
+
+ps: you should know how to install the package form cpan....
