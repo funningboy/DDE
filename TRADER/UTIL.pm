@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/usr/bin/perl 
 
 
 package TRADER::UTIL;
@@ -127,13 +127,13 @@ sub get_market_trader_path_dec{
 sub call_back_market_super_file{
     my ($path) = (@_);
 
-    open (my $ifile,"$path") or die "open $path error\n";
+    open (ifile,"$path") or die "open $path error\n";
  
     my $rec   =0;
     my %super =();
 
-   while(<$ifile>){
-     chmod;
+   while(<ifile>){
+     chomp;
      my ($MyStockID,$MuStockNm,$MyClose,$MyDiff,$MyDiffPer,$MyTicketCot)= split("\,",$_);
     
      my $market = MARKET->new(
@@ -149,19 +149,20 @@ sub call_back_market_super_file{
       $rec++;
    }
 
+close(ifile);
 return \%super;
 }
 
 sub call_back_market_trader_file{
     my ($path) = (@_);
 
-    open (my $ifile,"$path") or die "open $path error\n";
+    open (ifile,"$path") or die "open $path error\n";
  
     my $rec    =0;
     my %trader =();
 
-   while(<$ifile>){
-     chmod;
+   while(<ifile>){
+     chomp;
      my ($MyRec,$MyStockID,$MyBuyCot,$MySellCot,$MyTotCot)= split("\,",$_);
     
      my $trader = TRADER->new(
@@ -176,6 +177,7 @@ sub call_back_market_trader_file{
       $rec++;
    }
 
+close(ifile);
 return \%trader;
 }
 

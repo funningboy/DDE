@@ -17,7 +17,7 @@ sub get_system_time {
            if($mon<10){  $mon="0".$mon;   }
            if($mday<10){ $mday="0".$mday; }
 
-   return $year."\/".$mon."\/".$mday."\/".$hour."::".$min;
+   return $year."\/".$mon."\/".$mday."\/".$hour."\:\:".$min;
 }
 
 1;

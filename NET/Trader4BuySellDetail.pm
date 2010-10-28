@@ -159,7 +159,8 @@ sub exp_market_trader_data{
                              $trader->BYCOT.",".
                              $trader->SLCOT.",".
                              $trader->TOCOT."\n";
-	      }	
+	      }
+             close(ofile);	
           }
        }
     }

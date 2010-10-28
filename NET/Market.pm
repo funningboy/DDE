@@ -205,6 +205,7 @@ sub exp_market_data{
                                     $market->DIFFPER.",".
                                     $market->COUNT."\n";
         }
+             close(oFilePtr);
       }
     }
   }

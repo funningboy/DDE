@@ -21,6 +21,7 @@ sub get_help{
                                           ex: 2010/01/01\n");                        }
 
    }
+die;
 }
 
 sub new {
@@ -165,6 +166,8 @@ sub exp_history_data{
 	 printf oFilePtr "$MyTime,$MyOpen,$MyHigh,$MyLow,$MyClose,$MyVolume\n";
 	 
 	}
+
+ close(oFilePtr);
 }
 
 1;

@@ -32,10 +32,9 @@ sub get_help{
 }
 
 sub new {
-    my ($class) = (@_);
-    my $self  = INFO->new(); 
-    bless $self, $class;
-    return $self;
+    my ($self) = (@_);
+        %FINANCE::HISTORY_INFO::hsptr =();
+    return bless {};
 } 
  
 sub del_date_info{
@@ -50,12 +49,6 @@ sub del_date_info{
 
     delete $FINANCE::HISTORY_INFO::hsptr{DAT}{$date};
     delete $FINANCE::HISTORY_INFO::hsptr{REF}{$inx};
-}
-
-sub cls_file_info{
-    my ($self) = (@_);
-
-        %FINANCE::HISTORY_INFO::hsptr = ();
 }
 
 sub get_date_info{
@@ -95,8 +88,12 @@ sub get_file_info{
          $FINANCE::HISTORY_INFO::hsptr{DAT}{$dt}    = $inx;
          $FINANCE::HISTORY_INFO::hsptr{REF}{$inx++} = $info;
    }
+ 
+  my %arr = %FINANCE::HISTORY_INFO::hsptr; 
+         %FINANCE::HISTORY_INFO::hsptr = ();
 
-  return \%FINANCE::HISTORY_INFO::hsptr;
+  close(iFilePtr);
+  return \%arr;
 }
 
 

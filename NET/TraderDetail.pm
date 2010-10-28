@@ -97,6 +97,8 @@ sub exp_trader_data {
  	   	   if( $STID=~ m/(\d+)/){ ($STID,$STNM) = ($1,$2); $STID=$STID.".TW"; }
  	   	  	  printf  oFilePtr ("$STID,$BySlTC,$HDTC,$PCTC\n");  
  	   	}
+
+         close(oFilePtr);
 }
  
 sub get_sys_time {
